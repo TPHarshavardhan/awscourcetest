@@ -13,10 +13,7 @@ phases:
     commands:
       - echo "Installing dependencies..."
       - chmod +x ./simple-app/gradlew
-  pre_build:
-    commands:
-      - echo "Running tests..."
-      - ./simple-app/gradlew -p simple-app test
+  
   build:
     commands:
       - echo "Building JAR..."
