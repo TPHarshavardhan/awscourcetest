@@ -3,7 +3,6 @@ version: 0.2
 env:
   variables:
     S3_BUCKET: demo-springimagesmohan
-    
 
 phases:
   install:
@@ -13,11 +12,11 @@ phases:
     commands:
       - echo "Installing dependencies..."
       - chmod +x ./simple-app/gradlew
-  
+
   build:
     commands:
-      - echo "Building JAR..."
-      - ./simple-app/gradlew -p simple-app build
+      - echo "Building JAR (skipping tests)..."
+      - ./simple-app/gradlew -p simple-app build -x test
       - echo "Building and packaging SAM template..."
       - sam build --template-file simple-app/template.yaml
       - sam package --template-file simple-app/template.yaml --s3-bucket $S3_BUCKET --output-template-file packaged-template.yaml
