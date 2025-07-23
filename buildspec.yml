@@ -28,10 +28,7 @@ phases:
       - ./simple-app/gradlew -p simple-app build -x test
       - echo "Building and packaging SAM template..."
       - sam build --template-file simple-app/template.yaml
-      - sam package \
-          --template-file simple-app/template.yaml \
-          --s3-bucket $S3_BUCKET \
-          --output-template-file packaged-template.yaml
+      - sam package --template-file simple-app/template.yaml --s3-bucket $S3_BUCKET --output-template-file packaged-template.yaml
 
 artifacts:
   files:
