@@ -2,7 +2,8 @@ version: 0.2
 
 env:
   variables:
-    S3_BUCKET: demo-springimagesmohan
+    S3_BUCKET: springimagesmohan
+    AWS_DEFAULT_REGION: ap-south-1
 
 phases:
   install:
