@@ -49,6 +49,8 @@ public class ImageService {
 
     @Transactional
     public ResponseEntity<?> findImage(String name) {
+
+        
         Image image = imageJpaRepository.findByName(name).stream()
                 .findFirst()
                 .orElseThrow(NotFoundException::new);
