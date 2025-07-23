@@ -3,7 +3,6 @@ version: 0.2
 env:
   variables:
     S3_BUCKET: demo-springimagesmohan
-    
 
 phases:
   install:
@@ -11,19 +10,27 @@ phases:
       java: corretto17
       python: 3.13
     commands:
-      - echo "Installing dependencies..."
+      - echo "Installing dependencies and configuring Java 17..."
+      - export JAVA_HOME=$JAVA_17_HOME
+      - export PATH=$JAVA_HOME/bin:$PATH
+      - java -version
       - chmod +x ./simple-app/gradlew
+
   pre_build:
     commands:
       - echo "Running tests..."
       - ./simple-app/gradlew -p simple-app test
+
   build:
     commands:
       - echo "Building JAR..."
-      - ./simple-app/gradlew -p simple-app build
+      - ./simple-app/gradlew -p simple-app build -x test
       - echo "Building and packaging SAM template..."
       - sam build --template-file simple-app/template.yaml
-      - sam package --template-file simple-app/template.yaml --s3-bucket $S3_BUCKET --output-template-file packaged-template.yaml
+      - sam package \
+          --template-file simple-app/template.yaml \
+          --s3-bucket $S3_BUCKET \
+          --output-template-file packaged-template.yaml
 
 artifacts:
   files:
